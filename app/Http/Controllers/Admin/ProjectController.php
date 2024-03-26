@@ -42,12 +42,13 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProjectRequest $request)
+    public function store(StoreProjectRequest $request, Technology $technology)
     {
-        @dd($request->all());
         $data = $request->all();
         $project = new Project();
         $project->fill($data);
+        $technologies = Technology::select('label', 'id')->get();
+
         $project->slug = Str::slug($project->title);
         //Controllo se mi arriva un file
         if (Arr::exists($data, 'image')) {
@@ -57,7 +58,7 @@ class ProjectController extends Controller
             $project->image = $img_url;
         }
         $project->save();
-        return to_route('admin.projects.show', $project->id)
+        return to_route('admin.projects.show', $project->id, compact('technologies'))
             //Flash data
             ->with('message', "Progetto {$project->title} creato con successo")
             ->with('type', 'success');

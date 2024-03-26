@@ -29,6 +29,7 @@ class UpdateProjectRequest extends FormRequest
             'content' => 'nullable|string',
             'image' => 'image|mimes:png,jpg,jpeg',
             'type_id' => 'nullable|exists:types,id',
+            'project_technology' => 'nullable|exists:technologies,id'
 
         ];
     }
@@ -43,7 +44,7 @@ class UpdateProjectRequest extends FormRequest
             'image.image' => 'Il file caricato deve essere un immagine',
             'image.mimes' => 'L\'immagine deve essere di formato PNG, JPG o JPEG',
             'type_id' => 'Categoria non valida o non esistente',
-
+            'project_technology.exists' => 'Tecnologia non valida',
         ];
     }
 }
