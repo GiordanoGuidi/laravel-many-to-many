@@ -14,11 +14,22 @@ class TechnologySeeder extends Seeder
      */
     public function run(Generator $faker): void
     {
-        $labels = ['HTML', 'CSS', 'Bootstrap', 'Javascript', 'Vue', 'PHP', 'Laravel'];
-        foreach ($labels as $label) {
-            $technology = new Technology();
-            $technology->label = $label;
-            $technology->color = $faker;
+        $technologies = [
+            ['label' => 'HTML', 'color' => 'danger'],
+            ['label' => 'CSS', 'color' => 'primary'],
+            ['label' => 'ES6', 'color' => 'warning'],
+            ['label' => 'Bootstrap', 'color' => 'dark'],
+            ['label' => 'Vue', 'color' => 'success'],
+            ['label' => 'SQL', 'color' => 'secondary'],
+            ['label' => 'PHP', 'color' => 'info'],
+            ['label' => 'Laravel', 'color' => 'light'],
+
+        ];
+        foreach ($technologies as $technology) {
+            $new_technology = new Technology();
+            $new_technology->label = $technology['label'];
+            $new_technology->color = $technology['color'];
+            $new_technology->save();
         }
     }
 }
