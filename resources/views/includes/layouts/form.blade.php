@@ -83,7 +83,7 @@
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" name="technologies[]"
                      id="technology-{{$technology->id}}" 
-                     @if(in_array($technology->id, old('technologies',$prev_technologies))) checked @endif
+                     @if(in_array($technology->id, old('technologies',$prev_technologies ?? [] ))) checked @endif
                      value="{{$technology->id}}">
                     <label class="form-check-label" for="tachnologies[]">{{$technology->label}}</label>
                 </div>

@@ -160,6 +160,8 @@ class ProjectController extends Controller
     public function drop(Project $project)
     {
         $project->forceDelete();
+        if ($project->has('technologies')) $project->technologies()->detach();
+        if ($project->image) Storage::delete($project->image);
         return to_route('admin.projects.trash')
             ->with('type', 'danger')
             ->with('message', "Progetto {$project->title} eliminato definitivamente");
