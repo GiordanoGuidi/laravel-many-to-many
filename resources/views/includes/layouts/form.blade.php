@@ -75,6 +75,26 @@
         alt="#" class="img-fluid" id="preview">
         </div>
     </div>
+    {{--Technologies--}}
+    <div class="col-8 my-3">
+        @foreach ($technologies as $technology)
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="technologies[]"
+                 id="technology-{{$technology->id}}" @if(in_array($technology->id, old('technologies',[]))) checked @endif
+                 value="{{$technology->id}}">
+                <label class="form-check-label" for="tachnologies[]">{{$technology->label}}</label>
+            </div>
+        @endforeach
+        @error('type_id')
+        <div class="ivalid-feedback">
+                {{$message}}
+        </div>
+        @else
+        <div class="form text text-muted">
+            Inserisci la Tecnologia
+        </div>
+        @enderror
+    </div>
     {{--Content--}}
     <div class="col-12">
         <div class="form-floating mb-3">

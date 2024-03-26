@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Validation\Rule;
 
@@ -30,11 +31,12 @@ class ProjectController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Type $type)
+    public function create(Type $type, Technology $technology)
     {
         $types = Type::select('label', 'id')->get();
         $project = new Project();
-        return view('admin.projects.create', compact('project', 'types'));
+        $technologies = Technology::select('label', 'id')->get();
+        return view('admin.projects.create', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -42,6 +44,7 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
+        @dd($request->all());
         $data = $request->all();
         $project = new Project();
         $project->fill($data);
