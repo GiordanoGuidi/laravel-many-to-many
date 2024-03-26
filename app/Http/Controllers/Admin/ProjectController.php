@@ -47,7 +47,6 @@ class ProjectController extends Controller
         $data = $request->all();
         $project = new Project();
         $project->fill($data);
-        $technologies = Technology::select('label', 'id')->get();
 
         $project->slug = Str::slug($project->title);
         //Controllo se mi arriva un file
@@ -58,7 +57,11 @@ class ProjectController extends Controller
             $project->image = $img_url;
         }
         $project->save();
-        return to_route('admin.projects.show', $project->id, compact('technologies'))
+        //DOPO AVER SALVATO IL MODELLO, SE CI SONO TECNOLLOGIE LI AGGANCIO NELLA TABELLA PONTE
+        if (Arr::exists($data, 'technologies')) {
+            $project->technologies()->attach($data['technologies']);
+        }
+        return to_route('admin.projects.show', $project->id)
             //Flash data
             ->with('message', "Progetto {$project->title} creato con successo")
             ->with('type', 'success');
@@ -76,11 +79,13 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Project $project, Type $type)
+    public function edit(Project $project, Type $type, Technology $technology)
     {
         $types = Type::select('label', 'id')->get();
+        $technologies = Technology::select('label', 'id')->get();
 
-        return view('admin.projects.edit', compact('project', 'types'));
+
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**

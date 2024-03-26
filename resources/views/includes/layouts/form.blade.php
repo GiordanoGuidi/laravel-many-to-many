@@ -59,7 +59,7 @@
             <input type="file" class="form-control @error('image') is-invalid @elseif(old('image','')) is-valid @enderror" 
             id="image" name="image" value="{{old('image',$project->image)}}">
             @error('image')
-        <div class="ivalid-feedback">
+        <div class="invalid-feedback">
                 {{$message}}
         </div>
         @else
@@ -77,16 +77,20 @@
     </div>
     {{--Technologies--}}
     <div class="col-8 my-3">
-        @foreach ($technologies as $technology)
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="technologies[]"
-                 id="technology-{{$technology->id}}" @if(in_array($technology->id, old('technologies',[]))) checked @endif
-                 value="{{$technology->id}}">
-                <label class="form-check-label" for="tachnologies[]">{{$technology->label}}</label>
-            </div>
-        @endforeach
-        @error('type_id')
-        <div class="ivalid-feedback">
+        <div class="form-group @error('technologies') is-invalid @enderror">
+            <p class="form-label">Seleziona tecnologia utilizzate</p>
+            @foreach ($technologies as $technology)
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="technologies[]"
+                     id="technology-{{$technology->id}}" 
+                     @if(in_array($technology->id, old('technologies',[]))) checked @endif
+                     value="{{$technology->id}}">
+                    <label class="form-check-label" for="tachnologies[]">{{$technology->label}}</label>
+                </div>
+            @endforeach
+        </div>
+        @error('technologies')
+        <div class="invalid-feedback">
                 {{$message}}
         </div>
         @else
