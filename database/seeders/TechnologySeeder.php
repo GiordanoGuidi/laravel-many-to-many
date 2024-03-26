@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Technology;
-use Faker\Generator;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,7 +11,7 @@ class TechnologySeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(Generator $faker): void
+    public function run(): void
     {
         $technologies = [
             ['label' => 'HTML', 'color' => 'danger'],

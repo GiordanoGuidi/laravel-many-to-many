@@ -15,6 +15,7 @@
               <th scope="col">Titolo</th>
               <th scope="col">Slug</th>
               <th scope="col">Type</th>
+              <th scope="col">Technology</th>
               <th scope="col">Creato il</th>
               <th scope="col">Ultima modifica</th>
               <th scope="col" class="text-end">
@@ -34,6 +35,14 @@
                 <td>
                     @if($project->type)
                         <span class="badge" style="background-color:{{$project->type->color}}">{{$project->type?->label}}</span>
+                    @else 
+                        <p>Nessuna</p>
+                @endif
+                </td>
+                <td>
+                    @if($project->technology)
+                        <span class="badge rounded-pill text-bg-{{$project->technology->color}}">{{$project->technology?->label}}</span>
+                        {{-- <span class="badge" style="background-color:{{$project->type->color}}">{{$project->type?->label}}</span> --}}
                     @else 
                         <p>Nessuna</p>
                 @endif
