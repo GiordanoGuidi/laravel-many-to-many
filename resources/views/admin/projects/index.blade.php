@@ -40,12 +40,11 @@
                 @endif
                 </td>
                 <td>
-                    @if($project->technology)
-                        <span class="badge rounded-pill text-bg-{{$project->technology->color}}">{{$project->technology?->label}}</span>
-                        {{-- <span class="badge" style="background-color:{{$project->type->color}}">{{$project->type?->label}}</span> --}}
-                    @else 
+                    @forelse($project->technologies as $technology)
+                        <span class="badge rounded-pill text-bg-{{$technology->color}}">{{$technology->label}}</span>
+                    @empty
                         <p>Nessuna</p>
-                @endif
+                @endforelse
                 </td>
                 <td>{{$project->created_at}}</td>
                 <td>{{$project->updated_at}}</td>

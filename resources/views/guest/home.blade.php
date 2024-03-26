@@ -21,8 +21,25 @@
             <div class="card-body">
               <h5 class="card-title">{{$project->title}}</h5>
               <p class="card-text">{{$project->content}}</p>
-              <p class="card-text"><small class="text-muted">{{$project->created_at}}</small></p>
-              <p class="card-text"><small class="text-muted">{{$project->updated_at}}</small></p>
+              <p class="card-text">
+                <p><strong>Tipo:</strong>
+                  @if($project->type)
+                      <span class="badge" style="background-color:{{$project->type->color}}">{{$project->type?->label}}</span>
+                  @else 
+                      <span>Nessuna</span>
+                  </p>
+                  @endif
+              </p>
+              <p class="card-text">
+                <p><strong>Tecnologia:</strong>
+                  @forelse($project->technologies as $technology)
+                          <span class="badge rounded-pill text-bg-{{$technology->color}}">{{$technology->label}}</span>
+                  @empty
+                      <span>Nessuna</span>
+                      </p>
+                  @endforelse
+              <p class="card-text"><small class="text-muted"><strong>Creato il:</strong> {{$project->created_at}}</small></p>
+              <p class="card-text"><small class="text-muted"><strong>Modificato il:</strong> {{$project->updated_at}}</small></p>
               {{--Link per vedere il singolo progetto--}}
               <a href="{{route('guest.projects.show', $project->slug)}}" class="btn btn-primary">Vedi</a>
             </div>

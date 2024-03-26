@@ -19,6 +19,13 @@
                             <p>Nessuna</p>
                         </p>
                         @endif
+                        <p><strong>Tecnologia:</strong>
+                            @forelse($project->technologies as $technology)
+                                    <span class="badge rounded-pill text-bg-{{$technology->color}}">{{$technology->label}}</span>
+                            @empty
+                                <span>Nessuna</span>
+                            </p>
+                            @endforelse
                     <p><strong>Creato il :</strong>{{$project->created_at}}</p>
                     <p><strong>Ultima modifica :</strong>{{$project->updated_at}}</p>
                 </div>

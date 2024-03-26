@@ -21,11 +21,18 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
             <div>
                 <p><strong>Tipo:</strong>
                 @if($project->type)
-                <span class="badge" style="background-color:{{$project->type->color}}">{{$project->type?->label}}</span>
+                    <span class="badge" style="background-color:{{$project->type->color}}">{{$project->type?->label}}</span>
                 @else 
-                    <p>Nessuna</p>
+                    <span>Nessuna</span>
                 </p>
                 @endif
+                <p><strong>Tecnologia:</strong>
+                @forelse($project->technologies as $technology)
+                        <span class="badge rounded-pill text-bg-{{$technology->color}}">{{$technology->label}}</span>
+                @empty
+                    <span>Nessuna</span>
+                    </p>
+                @endforelse
                 <p><strong>Creato il :</strong>{{$project->created_at}}</p>
                 <p><strong>Ultima modifica :</strong>{{$project->updated_at}}</p>
             </div>
