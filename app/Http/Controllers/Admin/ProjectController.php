@@ -84,8 +84,10 @@ class ProjectController extends Controller
         $types = Type::select('label', 'id')->get();
         $technologies = Technology::select('label', 'id')->get();
 
+        $prev_technologies = $project->technologies->pluck('id')->toArray();
 
-        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
+
+        return view('admin.projects.edit', compact('project', 'types', 'technologies', 'prev_technologies'));
     }
 
     /**
@@ -108,6 +110,13 @@ class ProjectController extends Controller
         }
 
         $project->update($data);
+
+        if (Arr::exists($data, 'technologies')) $project->technologies()->sync($data['technologies']);
+        elseif (!Arr::exists($data, 'technologies') && $project->has('technologies')) $project->technologies()->detach();
+
+
+
+
         return to_route('admin.projects.index', compact('project'))
             //Flash data
             ->with('type', 'success')
